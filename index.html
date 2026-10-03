@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI/ML Mid-Sem Complete Notes</title><style>
+:root{--fg:#1d2433;--acc:#2f5bd8;--hd:#eef2fd;--bd:#c9d1e3}
+body{margin:0 auto;max-width:920px;padding:18px 16px 50px;color:var(--fg);background:#fff;font:15px/1.55 system-ui,Arial,sans-serif}
+h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.2rem;color:var(--acc);border-bottom:2px solid var(--acc);margin:1.6em 0 .5em}
+h3{font-size:1rem;margin:1.1em 0 .3em;background:var(--hd);padding:4px 8px;border-left:4px solid var(--acc)}
+table{border-collapse:collapse;width:100%;margin:.4em 0 .8em;font-size:.92rem}th,td{border:1px solid var(--bd);padding:5px 8px;text-align:left;vertical-align:top}th{background:var(--hd)}
+ul,ol{margin:.3em 0 .6em;padding-left:1.3em}.f{background:#fffbe6;border:1px solid #e8dc9a;padding:5px 10px;margin:.4em 0;border-radius:4px}
+.w{overflow-x:auto}a{color:var(--acc)}
+@media print{body{max-width:none;padding:0;font-size:10.3pt}h2{break-after:avoid}h3{break-after:avoid}tr{break-inside:avoid}}
+
+.tabs{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:0;background:#fff;padding:8px 0;border-bottom:1px solid var(--bd);z-index:5}
+.tabs button{flex:1;min-width:110px;padding:9px 12px;border:1px solid var(--bd);background:#fff;color:var(--acc);border-radius:8px;font:600 .95rem system-ui;cursor:pointer}
+.tabs button.on{background:var(--acc);color:#fff}
+.panel{display:none}.panel.on{display:block}
+@media print{.tabs{display:none}.panel{display:block!important;break-before:page}.panel:first-of-type{break-before:auto}}
+footer{margin-top:40px;padding-top:12px;border-top:1px solid var(--bd);text-align:center;color:#5b6577;font-size:.9rem}
+
+html{-webkit-text-size-adjust:100%}
+.tabs button{overflow-wrap:normal;word-break:normal;hyphens:none}
+body{max-width:min(1100px,100%);padding:clamp(10px,3vw,28px) clamp(10px,3vw,24px) 50px;font-size:clamp(14px,.35vw + 13px,17px);overflow-wrap:break-word}
+h1{font-size:clamp(1.25rem,3.5vw + .6rem,2rem)}h2{font-size:clamp(1.05rem,1.5vw + .8rem,1.4rem)}h3{font-size:clamp(.95rem,1vw + .7rem,1.1rem)}
+img,svg{max-width:100%;height:auto}
+.w{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;margin:.4em 0 .8em}
+.w table{margin:0;min-width:min(100%,480px)}
+.f{overflow-x:auto;overflow-wrap:anywhere}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr)}
+.tabs button{min-width:0;padding:10px 6px;font-size:clamp(.78rem,1.2vw + .55rem,.95rem);line-height:1.2}
+@media (max-width:640px){.tabs{grid-template-columns:repeat(2,1fr)}th,td{padding:5px 6px}.w table{min-width:520px}ul,ol{padding-left:1.1em}}
+@media (max-width:360px){.tabs button{padding:9px 4px}}
+@media (min-width:1500px){body{max-width:1240px}}
+@media (hover:none){.tabs button{min-height:44px}}
+@media print{body{max-width:none!important;font-size:10.3pt!important}.w{overflow:visible}.w table{min-width:0!important}.tabs{display:none}}
+</style></head><body>
+<h1>AI/ML Mid-Sem: Complete Detailed Notes</h1>
+<div class="tabs"><button data-t="u1">Unit 1</button><button data-t="u2">Unit 2</button><button data-t="u3">Unit 3</button><button data-t="paper">Previous Year Mid Paper</button></div>
+<section id="u1" class="panel"><h2>Unit 1: Introduction to Machine Learning</h2>
+
+
+<h3>Machine Learning and Well-Posed Learning Problem</h3>
+<p><b>Definition:</b> Machine Learning is the field of study that gives computers the ability to learn from experience (data) without being explicitly programmed (Arthur Samuel). <b>Mitchell (1997):</b> A computer program is said to learn from experience <b>E</b> with respect to some class of tasks <b>T</b> and performance measure <b>P</b>, if its performance at T, as measured by P, improves with E.</p>
+<div class="w"><table><tr><th>Problem</th><th>T</th><th>P</th><th>E</th></tr>
+<tr><td>Checkers</td><td>Playing checkers</td><td>% of games won</td><td>Games played against itself</td></tr>
+<tr><td>Handwriting recognition</td><td>Recognising words in images</td><td>% words correct</td><td>Database of labelled handwriting</td></tr>
+<tr><td>Spam filter</td><td>Classify email as spam/not</td><td>% emails correctly classified</td><td>Emails labelled by users</td></tr></table></div>
+<p><b>Motivation:</b> (1) tasks too complex to hand-code (speech, vision); (2) huge data volumes; (3) systems must adapt to change and personalise; (4) discovers hidden patterns humans miss; (5) lower cost than manual rule writing.</p>
+<p><b>Applications:</b> fraud detection, image/speech recognition, spam filtering, recommendation systems, medical diagnosis, stock prediction, self-driving cars, machine translation, house price prediction.</p>
+
+<h3>Designing a Learning System (checkers example)</h3>
+<ol><li><b>Choosing the training experience:</b> direct (board states with correct moves) or indirect (only final outcomes of games, so credit assignment is needed); degree of learner control over the examples; how well training data represents the test distribution.</li>
+<li><b>Choosing the target function:</b> e.g. V: Board &rarr; R giving the value of a board state (V = +100 win, -100 loss, 0 draw).</li>
+<li><b>Choosing representation:</b> linear function V(b) = w<sub>0</sub> + w<sub>1</sub>x<sub>1</sub> + ... + w<sub>6</sub>x<sub>6</sub>, where x<sub>i</sub> are board features (number of black pieces, red pieces, kings, threatened pieces).</li>
+<li><b>Choosing the learning algorithm:</b> estimate training values V<sub>train</sub>(b) = V(Successor(b)); adjust weights by the LMS rule: w<sub>i</sub> &larr; w<sub>i</sub> + &eta;(V<sub>train</sub>(b) - V(b))x<sub>i</sub>.</li>
+<li><b>Final design:</b> four modules: Experiment Generator, Performance System, Critic, Generalizer.</li></ol>
+
+<h3>Perspectives and Issues in ML</h3>
+<p>ML is viewed as <b>searching a large hypothesis space</b> for the hypothesis that best fits the training data and prior knowledge. Issues: which algorithm for which task; how much training data is enough; how prior knowledge helps; how to reduce overfitting; how to choose the training experience and representation; how to handle noisy or missing data; how to automatically select features; computational cost and scalability.</p>
+
+<h3>Concept Learning</h3>
+<p>Concept learning = inferring a boolean-valued function from training examples of its inputs and outputs (e.g. "EnjoySport"). Hypothesis notation: each attribute is a specific value, "?" (any value) or &Phi; (no value).</p>
+<p><b>Find-S algorithm:</b></p>
+<ol><li>Initialise h to the most specific hypothesis &lt;&Phi;, &Phi;, ..., &Phi;&gt;.</li>
+<li>For each positive example x: for each attribute, if h's value is satisfied by x do nothing, else replace it with the next more general constraint (the value of x first, then "?").</li>
+<li>Ignore negative examples. Output h.</li></ol>
+<p>Limitations: ignores negatives, cannot tell if it found the only consistent hypothesis, fails with noisy data.</p>
+<p><b>Candidate Elimination:</b> maintains the <i>version space</i> (all hypotheses consistent with the data) through the specific boundary S and general boundary G. Positive example: remove from G inconsistent hypotheses, minimally generalise S. Negative example: remove from S inconsistent hypotheses, minimally specialise G. <b>Inductive bias:</b> the set of assumptions that lets the learner generalise to unseen data (for Candidate Elimination: the target concept is in the hypothesis space).</p>
+
+<h3>Types of Machine Learning</h3>
+<div class="w"><table><tr><th>Type</th><th>Description</th><th>Algorithms</th><th>Example</th></tr>
+<tr><td>Supervised</td><td>Learns mapping from inputs to known labels. Regression (continuous output) and classification (discrete output).</td><td>Linear/logistic regression, KNN, SVM, trees, Naive Bayes</td><td>House price, spam detection</td></tr>
+<tr><td>Unsupervised</td><td>No labels; finds structure in data.</td><td>K-means, hierarchical clustering, PCA, Apriori</td><td>Customer segmentation</td></tr>
+<tr><td>Reinforcement</td><td>Agent interacts with environment, receives reward/penalty, learns a policy maximising cumulative reward by trial and error.</td><td>Q-learning, policy gradient</td><td>Chess, robot walking</td></tr></table></div>
+
+<h3>Bias-Variance and Regularization (exam favourites)</h3>
+<p>Expected error = Bias<sup>2</sup> + Variance + Irreducible error. Bias: error from wrong/simple assumptions (underfitting). Variance: sensitivity to training set (overfitting). Increasing complexity lowers bias, raises variance; the best model balances both. Regularization adds a weight penalty (L2: &lambda;&sum;w<sup>2</sup>, L1: &lambda;&sum;|w|) to the loss, shrinking weights, so the fitted function is smoother and less sensitive to noise: variance falls, bias rises slightly. L2 gives small non-zero weights; L1 gives sparse weights (many exactly zero).</p>
+</section><section id="u2" class="panel"><h2>Unit 2: Shrinkage, PCR, Linear Classification</h2>
+<h3>Shrinkage Methods</h3>
+<p><b>Why:</b> Ordinary least squares (OLS) has low bias but high variance when predictors are many or correlated. Shrinkage methods constrain/penalise coefficient size, trading a little bias for a large drop in variance, improving prediction accuracy.</p>
+<div class="f"><b>Ridge:</b> &beta;<sup>ridge</sup> = argmin { &sum;(y<sub>i</sub> - &beta;<sub>0</sub> - &sum;&beta;<sub>j</sub>x<sub>ij</sub>)<sup>2</sup> + &lambda;&sum;&beta;<sub>j</sub><sup>2</sup> } &nbsp;&nbsp; Closed form: (X<sup>T</sup>X + &lambda;I)<sup>-1</sup>X<sup>T</sup>y<br>
+<b>Lasso:</b> same RSS + &lambda;&sum;|&beta;<sub>j</sub>|</div>
+<ul><li>&lambda; (tuning parameter) chosen by cross-validation. &lambda;=0 gives OLS; &lambda;&rarr;&infin; gives all coefficients &rarr; 0.</li>
+<li>Intercept &beta;<sub>0</sub> is not penalised; standardise inputs first.</li>
+<li>Ridge: shrinks coefficients proportionally, never exactly zero; handles multicollinearity (X<sup>T</sup>X + &lambda;I is always invertible).</li>
+<li>Lasso: L1 constraint region has corners, so the solution often lies on an axis and some coefficients become exactly zero (feature selection). No closed form.</li></ul>
+
+<h3>Principal Components Regression (PCR)</h3>
+<ol><li>Standardise predictors.</li><li>Compute covariance matrix; find eigenvectors (principal directions) and eigenvalues (variance explained).</li>
+<li>Keep first M components z<sub>m</sub> = Xv<sub>m</sub> which capture most variance (choose M by cross-validation).</li>
+<li>Regress y on z<sub>1</sub>...z<sub>M</sub> by OLS: &theta;<sub>m</sub> = &lt;z<sub>m</sub>, y&gt;/&lt;z<sub>m</sub>, z<sub>m</sub>&gt;.</li></ol>
+<p><b>Pros:</b> removes multicollinearity, reduces dimensions, components are orthogonal. <b>Cons:</b> components are built without looking at y, so high-variance directions may not predict y; components are hard to interpret. <b>Ridge vs PCR:</b> ridge shrinks low-variance directions smoothly; PCR discards them completely.</p>
+
+<h3>Linear Classification, Separating Hyperplanes</h3>
+<p>A linear classifier divides the feature space with a hyperplane w<sup>T</sup>x + b = 0; predict class +1 if w<sup>T</sup>x + b &gt; 0, else -1. w is normal to the plane; distance of x from the plane = |w<sup>T</sup>x + b|/||w||. Data is <b>linearly separable</b> if such a plane exists. Perceptron update on error: w &larr; w + &eta;y<sub>i</sub>x<sub>i</sub>. Infinitely many separating planes may exist; the <b>optimal separating hyperplane</b> maximises the margin (basis of SVM). Problems with linear regression for classification: outputs outside [0,1], sensitive to outliers; hence logistic regression.</p>
+
+<h3>Logistic Regression</h3>
+<div class="f">p(x) = P(y=1|x) = 1/(1 + e<sup>-(w<sup>T</sup>x+b)</sup>) &nbsp;&nbsp; Log-odds: ln[p/(1-p)] = w<sup>T</sup>x + b</div>
+<ul><li>Sigmoid squashes any real value to (0,1), interpreted as a probability; predict 1 if p &ge; 0.5 (threshold adjustable).</li>
+<li>Decision boundary w<sup>T</sup>x + b = 0 is linear.</li>
+<li><b>Training:</b> maximum likelihood. Loss (cross-entropy) J = -(1/m)&sum;[y log p + (1-y) log(1-p)], minimised by gradient descent: w &larr; w - &alpha;(1/m)&sum;(p<sub>i</sub> - y<sub>i</sub>)x<sub>i</sub>. No closed-form solution.</li>
+<li>Multiclass: one-vs-rest or softmax. Regularisation (L1/L2) can be added.</li>
+<li>Despite its name it is a <b>classification</b> algorithm.</li></ul>
+
+</section><section id="u3" class="panel"><h2>Unit 3: Naive Bayes, KNN, Trees, SVM, Evaluation</h2>
+<h3>Naive Bayes Classifier</h3>
+<div class="f">P(C|x<sub>1..n</sub>) = P(C)&prod;P(x<sub>i</sub>|C) / P(x) &nbsp;&nbsp; Predict: C* = argmax<sub>C</sub> P(C)&prod;P(x<sub>i</sub>|C)</div>
+<p>"Naive" because features are assumed conditionally independent given the class. Steps: (1) compute priors P(C) from class frequencies; (2) compute likelihoods P(x<sub>i</sub>|C); (3) multiply; (4) choose the class with highest posterior. Use log-probabilities to avoid underflow; use Laplace smoothing (+1) to avoid zero probabilities.</p>
+<div class="w"><table><tr><th>Variant</th><th>Feature type</th><th>Likelihood and parameter fitting (MLE)</th><th>Use</th></tr>
+<tr><td>Multivariate Bernoulli</td><td>Binary (present/absent)</td><td>P(x<sub>i</sub>|C) = p<sub>iC</sub><sup>x<sub>i</sub></sup>(1-p<sub>iC</sub>)<sup>1-x<sub>i</sub></sup>; p<sub>iC</sub> = (docs of C containing feature i + 1)/(docs of C + 2). Absence of a feature also contributes.</td><td>Short text, binary word occurrence</td></tr>
+<tr><td>Multinomial</td><td>Counts / frequencies</td><td>P(w|C) = (count of w in class C + 1)/(total words in C + |V|); document score = P(C)&prod;P(w|C)<sup>count</sup>. Absent words ignored.</td><td>Document classification</td></tr>
+<tr><td>Gaussian</td><td>Continuous</td><td>P(x<sub>i</sub>|C) = (1/&radic;(2&pi;&sigma;<sup>2</sup>)) exp(-(x<sub>i</sub>-&mu;)<sup>2</sup>/(2&sigma;<sup>2</sup>)), with &mu;, &sigma;<sup>2</sup> = mean and variance of feature i within class C</td><td>Numeric measurements</td></tr></table></div>
+<p><b>Pros:</b> fast, works with little data, handles many features. <b>Cons:</b> independence assumption rarely true; zero-frequency problem.</p>
+
+<h3>K-Nearest Neighbours</h3>
+<p>Instance-based, <b>lazy</b> learner (no training phase; stores all data). Algorithm: (1) choose K; (2) compute distance from query to every training point; (3) pick K nearest; (4) classification: majority vote, regression: average. Distances: Euclidean &radic;&sum;(x<sub>i</sub>-y<sub>i</sub>)<sup>2</sup>, Manhattan &sum;|x<sub>i</sub>-y<sub>i</sub>|, Minkowski.</p>
+<ul><li>Small K (K=1): low bias, high variance (overfits noise). Large K: high bias, smooth boundary. Choose odd K by cross-validation.</li>
+<li>Feature scaling (normalisation) is essential. Suffers from the curse of dimensionality; prediction is slow on large data.</li>
+<li>Distance-weighted voting (weight = 1/d<sup>2</sup>) improves accuracy.</li></ul>
+
+<h3>Decision Trees</h3>
+<p>A tree where internal nodes test an attribute, branches are outcomes, leaves are class labels. Built top-down greedily (ID3): pick the attribute with the highest information gain, split, recurse until pure or no attributes left.</p>
+<div class="f">Entropy(S) = -&sum;p<sub>i</sub> log<sub>2</sub>p<sub>i</sub> &nbsp;(0 = pure, 1 = 50/50 binary)<br>Gain(S,A) = Entropy(S) - &sum;(|S<sub>v</sub>|/|S|)Entropy(S<sub>v</sub>) &nbsp;&nbsp; Gini = 1 - &sum;p<sub>i</sub><sup>2</sup></div>
+<p>Example: 9 Yes, 5 No: Entropy = -(9/14)log<sub>2</sub>(9/14) - (5/14)log<sub>2</sub>(5/14) = 0.940. C4.5 uses gain ratio (handles continuous values, missing data); CART uses Gini and gives binary splits. <b>Overfitting control:</b> pre-pruning (max depth, min samples) and post-pruning. <b>Pros:</b> interpretable, no scaling needed. <b>Cons:</b> unstable, overfits, biased to many-valued attributes (ID3).</p>
+
+<h3>Support Vector Machines</h3>
+<p>SVM finds the hyperplane w<sup>T</sup>x + b = 0 with the <b>maximum margin</b> between classes. Margin planes: w<sup>T</sup>x + b = &plusmn;1; margin width = 2/||w||. <b>Support vectors</b> are the points lying on these planes (closest to the boundary); only they determine the solution.</p>
+<div class="w"><table><tr><th></th><th>Hard margin</th><th>Soft margin</th></tr>
+<tr><td>Assumption</td><td>Data perfectly linearly separable</td><td>Overlap/noise allowed</td></tr>
+<tr><td>Objective</td><td>Min &frac12;||w||<sup>2</sup> s.t. y<sub>i</sub>(w<sup>T</sup>x<sub>i</sub>+b) &ge; 1</td><td>Min &frac12;||w||<sup>2</sup> + C&sum;&xi;<sub>i</sub> s.t. y<sub>i</sub>(w<sup>T</sup>x<sub>i</sub>+b) &ge; 1-&xi;<sub>i</sub>, &xi;<sub>i</sub> &ge; 0</td></tr>
+<tr><td>Errors</td><td>None allowed</td><td>Slack &xi;<sub>i</sub> allows points inside margin or misclassified</td></tr>
+<tr><td>Outliers</td><td>Very sensitive</td><td>Robust</td></tr>
+<tr><td>C</td><td>Not used (C = &infin;)</td><td>Large C: narrow margin, overfit risk. Small C: wide margin, underfit risk</td></tr></table></div>
+<p><b>Kernel trick:</b> for non-linearly-separable data, map x to a higher-dimensional space &phi;(x) where it becomes separable. The dual form depends only on dot products x<sub>i</sub>&middot;x<sub>j</sub>, so replace them with K(x<sub>i</sub>,x<sub>j</sub>) = &phi;(x<sub>i</sub>)&middot;&phi;(x<sub>j</sub>) without computing &phi; explicitly (cheap). Decision function: f(x) = sign(&sum;&alpha;<sub>i</sub>y<sub>i</sub>K(x<sub>i</sub>,x)+b).</p>
+<div class="w"><table><tr><th>Kernel</th><th>Formula</th></tr><tr><td>Linear</td><td>x&middot;x'</td></tr><tr><td>Polynomial</td><td>(x&middot;x' + c)<sup>d</sup></td></tr><tr><td>RBF (Gaussian)</td><td>exp(-&gamma;||x-x'||<sup>2</sup>)</td></tr><tr><td>Sigmoid</td><td>tanh(&kappa;x&middot;x' + c)</td></tr></table></div>
+
+<h3>Evaluation Measures for Classification</h3>
+<div class="w"><table><tr><th></th><th>Actual +</th><th>Actual -</th></tr><tr><td>Predicted +</td><td>TP</td><td>FP (Type I error)</td></tr><tr><td>Predicted -</td><td>FN (Type II error)</td><td>TN</td></tr></table></div>
+<p>Accuracy = (TP+TN)/Total; Precision = TP/(TP+FP); Recall = TP/(TP+FN); Specificity = TN/(TN+FP); F1 = 2PR/(P+R); Error rate = 1 - Accuracy. Accuracy misleads on imbalanced data (use F1). Prefer <b>recall</b> when missing a positive is costly (cancer screening); prefer <b>precision</b> when false alarms are costly (spam filter). ROC curve plots TPR vs FPR across thresholds; AUC closer to 1 is better.</p>
+
+</section><section id="paper" class="panel"><h2>Previous Year Mid Paper: Full Solutions</h2>
+<h3>Q.1 Multiple Choice Questions (answers with reasons)</h3>
+<div class="w"><table><tr><th>No.</th><th>Ans</th><th>Explanation</th></tr>
+<tr><td>1</td><td><b>b</b></td><td>ML = learning from experience without being explicitly programmed. Writing explicit rules (a) or hardcoding (c) is traditional programming.</td></tr>
+<tr><td>2</td><td><b>c</b></td><td>Ideal model: low bias (fits true pattern) and low variance (stable across datasets). High bias = underfit, high variance = overfit.</td></tr>
+<tr><td>3</td><td><b>a</b></td><td>Price is a continuous numeric target learned from labelled data: supervised regression.</td></tr>
+<tr><td>4</td><td><b>b</b></td><td>Sigmoid output lies between 0 and 1 and is read as P(y=1|x). Continuous unbounded values belong to linear regression.</td></tr>
+<tr><td>5</td><td><b>a</b></td><td>Hard margin demands perfect separation: no point may violate the margin. Allowing errors is soft margin.</td></tr>
+<tr><td>6</td><td><b>b</b></td><td>Overfitting: model memorises the training data (including noise) and performs poorly on unseen data. Too simple a model causes underfitting.</td></tr>
+<tr><td>7</td><td><b>d</b></td><td>A well-posed problem is defined by all three: experience E, task T and performance measure P.</td></tr>
+<tr><td>8</td><td><b>c</b></td><td>Traditional database indexing uses fixed algorithms (B-trees, hashing), no learning from data.</td></tr>
+<tr><td>9</td><td><b>c</b></td><td>Reinforcement learning: agent learns by trial and error from reward/penalty signals.</td></tr>
+<tr><td>10</td><td><b>b</b></td><td>Support vectors are the training points closest to the hyperplane (lying on the margin); they alone define it.</td></tr></table></div>
+
+<h3>Q.2 (1) What is Machine Learning? Differentiate Supervised and Unsupervised Learning</h3>
+<p><b>Machine Learning</b> is a branch of Artificial Intelligence in which computer systems learn patterns from data and improve their performance with experience, without being explicitly programmed for each situation (Arthur Samuel). Mitchell's formal definition: a program learns from experience E with respect to task T and performance measure P if its performance at T, measured by P, improves with E. Example: an email spam filter (T = classify email, P = accuracy, E = emails labelled spam/not spam).</p>
+<p><b>Supervised learning:</b> the algorithm is trained on labelled data (input X with known output y) and learns a mapping f: X &rarr; y to predict outputs for new inputs. Two types: classification (discrete label, e.g. spam/not spam) and regression (continuous value, e.g. house price).<br>
+<b>Unsupervised learning:</b> the data has no labels; the algorithm finds hidden structure, groups or relationships on its own, e.g. clustering customers or reducing dimensions with PCA.</p>
+<div class="w"><table><tr><th>Basis</th><th>Supervised Learning</th><th>Unsupervised Learning</th></tr>
+<tr><td>Training data</td><td>Labelled (input and correct output)</td><td>Unlabelled (input only)</td></tr>
+<tr><td>Goal</td><td>Predict output / learn mapping</td><td>Discover patterns, groups, structure</td></tr>
+<tr><td>Feedback</td><td>Direct, from known labels</td><td>None</td></tr>
+<tr><td>Problem types</td><td>Classification, regression</td><td>Clustering, association, dimensionality reduction</td></tr>
+<tr><td>Algorithms</td><td>Linear/logistic regression, KNN, SVM, decision trees, Naive Bayes</td><td>K-means, hierarchical clustering, PCA, Apriori</td></tr>
+<tr><td>Accuracy evaluation</td><td>Easy (compare with true labels)</td><td>Difficult (silhouette score, inertia)</td></tr>
+<tr><td>Complexity / cost</td><td>Labelling data is costly</td><td>No labelling cost</td></tr>
+<tr><td>Example</td><td>Diabetes prediction, house price</td><td>Customer segmentation</td></tr></table></div>
+
+<h3>Q.2 (2) KNN classifier (K = 3, Euclidean distance)</h3>
+<p><b>Given:</b> test example BMI = 43.6, Age = 40, Sugar = ?<br><b>Formula:</b> d = &radic;[(BMI<sub>train</sub> - 43.6)<sup>2</sup> + (Age<sub>train</sub> - 40)<sup>2</sup>]</p>
+<p><b>Step 1: distance to each training example</b></p>
+<div class="w"><table><tr><th>BMI</th><th>Age</th><th>Sugar</th><th>Calculation</th><th>Distance</th></tr>
+<tr><td>33.6</td><td>50</td><td>Yes</td><td>&radic;[(33.6-43.6)<sup>2</sup> + (50-40)<sup>2</sup>] = &radic;(100+100) = &radic;200</td><td>14.14</td></tr>
+<tr><td>43.1</td><td>67</td><td>No</td><td>&radic;[(43.1-43.6)<sup>2</sup> + (67-40)<sup>2</sup>] = &radic;(0.25+729) = &radic;729.25</td><td>27.00</td></tr>
+<tr><td>35.3</td><td>23</td><td>Yes</td><td>&radic;[(35.3-43.6)<sup>2</sup> + (23-40)<sup>2</sup>] = &radic;(68.89+289) = &radic;357.89</td><td>18.92</td></tr>
+<tr><td>36.7</td><td>45</td><td>Yes</td><td>&radic;[(36.7-43.6)<sup>2</sup> + (45-40)<sup>2</sup>] = &radic;(47.61+25) = &radic;72.61</td><td>8.52</td></tr>
+<tr><td>25.7</td><td>46</td><td>No</td><td>&radic;[(25.7-43.6)<sup>2</sup> + (46-40)<sup>2</sup>] = &radic;(320.41+36) = &radic;356.41</td><td>18.88</td></tr></table></div>
+<p><b>Step 2: sort ascending and pick K = 3 nearest</b></p>
+<div class="w"><table><tr><th>Rank</th><th>Distance</th><th>Sugar</th></tr><tr><td>1</td><td>8.52</td><td>Yes</td></tr><tr><td>2</td><td>14.14</td><td>Yes</td></tr><tr><td>3</td><td>18.88</td><td>No</td></tr><tr><td>4</td><td>18.92</td><td>Yes (not used)</td></tr><tr><td>5</td><td>27.00</td><td>No (not used)</td></tr></table></div>
+<p><b>Step 3: majority vote:</b> 2 Yes vs 1 No. <b>Conclusion: Sugar = Yes</b>, i.e. the test patient is predicted to be diabetic.<br><i>Note:</i> features were not normalised as the question does not ask for it; Age has a wider range than BMI, so it influences distance more.</p>
+
+<h3>Q.2 (3) Loan approval model: Accuracy, Precision, Recall, F1</h3>
+<div class="w"><table><tr><th></th><th>Actual Approved</th><th>Actual Rejected</th><th>Total</th></tr>
+<tr><td>Predicted Approved</td><td>TP = 50</td><td>FP = 10</td><td>60</td></tr>
+<tr><td>Predicted Rejected</td><td>FN = 20</td><td>TN = 70</td><td>90</td></tr>
+<tr><td>Total</td><td>70</td><td>80</td><td>150</td></tr></table></div>
+<p>Positive class = Approved.</p>
+<div class="w"><table><tr><th>Metric</th><th>Formula</th><th>Working</th><th>Result</th></tr>
+<tr><td>Accuracy</td><td>(TP+TN)/(TP+TN+FP+FN)</td><td>(50+70)/150 = 120/150</td><td><b>0.80 = 80%</b></td></tr>
+<tr><td>Precision</td><td>TP/(TP+FP)</td><td>50/(50+10) = 50/60</td><td><b>0.833 = 83.3%</b></td></tr>
+<tr><td>Recall</td><td>TP/(TP+FN)</td><td>50/(50+20) = 50/70</td><td><b>0.714 = 71.4%</b></td></tr>
+<tr><td>F1-score</td><td>2&times;P&times;R/(P+R)</td><td>2&times;0.833&times;0.714/(0.833+0.714) = 1.190/1.547</td><td><b>0.769 = 76.9%</b></td></tr></table></div>
+<p><b>Interpretation:</b> 80% of all decisions are correct. When the model approves, it is right 83.3% of the time. It identifies only 71.4% of the applicants who should truly be approved (20 genuine applicants wrongly rejected). F1 balances both at 0.769.</p>
+
+<h3>Q.2 (4) Bias, variance and the bias-variance trade-off</h3>
+<p><b>Bias:</b> the difference between the average prediction of the model and the true value. It arises from wrong or over-simplified assumptions (e.g. fitting a straight line to curved data). High bias &rarr; underfitting: high error on both training and test data.</p>
+<p><b>Variance:</b> how much the model's predictions vary when it is trained on different training sets. A very flexible model changes a lot with small changes in data because it learns noise. High variance &rarr; overfitting: very low training error but high test error.</p>
+<p><b>Trade-off (own words):</b> A simple model makes strong assumptions, so it is stable but misses real patterns (high bias, low variance). A complex model fits every detail, so it captures the pattern but also noise and swings with each dataset (low bias, high variance). When we make a model more complex, bias goes down while variance goes up, and the reverse when we simplify, so both cannot be minimised together. The goal is a middle level of complexity where total error is smallest.</p>
+<div class="f">Expected test error = Bias<sup>2</sup> + Variance + Irreducible error</div>
+<div class="w"><table><tr><th>Model complexity</th><th>Bias</th><th>Variance</th><th>Train error</th><th>Test error</th><th>Result</th></tr>
+<tr><td>Too low</td><td>High</td><td>Low</td><td>High</td><td>High</td><td>Underfitting</td></tr>
+<tr><td>Optimal</td><td>Low</td><td>Low</td><td>Low</td><td>Lowest</td><td>Good generalisation</td></tr>
+<tr><td>Too high</td><td>Low</td><td>High</td><td>Very low</td><td>High</td><td>Overfitting</td></tr></table></div>
+<p><b>How to balance:</b> cross-validation, regularization, more training data, feature selection, ensembling (bagging reduces variance), pruning trees, tuning K in KNN or C in SVM.</p>
+
+<h3>Q.2 (5) How regularization reduces overfitting; effect on model weights</h3>
+<p>Overfitting happens when a model has large, finely tuned weights that fit noise in the training data. <b>Regularization</b> adds a penalty on the size of the weights to the loss function: J(w) = Loss(w) + &lambda;&middot;Penalty(w). The optimiser must now trade off fitting the data against keeping weights small. Smaller weights give a smoother, simpler function that changes less with noise, so variance (and overfitting) falls, while bias rises slightly. &lambda; controls strength (chosen by cross-validation): &lambda; = 0 is no regularization; very large &lambda; pushes weights to zero and causes underfitting.</p>
+<div class="w"><table><tr><th>Basis</th><th>L2 / Ridge</th><th>L1 / Lasso</th></tr>
+<tr><td>Penalty</td><td>&lambda;&sum;w<sub>j</sub><sup>2</sup></td><td>&lambda;&sum;|w<sub>j</sub>|</td></tr>
+<tr><td>Effect on weights</td><td>Shrinks all weights towards zero smoothly; they become small but rarely exactly zero</td><td>Shrinks weights by a constant amount; many become exactly zero</td></tr>
+<tr><td>Model</td><td>Dense; keeps all features</td><td>Sparse; automatic feature selection</td></tr>
+<tr><td>Correlated features</td><td>Shares weight among them</td><td>Tends to keep one, drop others</td></tr>
+<tr><td>Solution</td><td>Closed form (X<sup>T</sup>X + &lambda;I)<sup>-1</sup>X<sup>T</sup>y</td><td>No closed form (coordinate descent)</td></tr>
+<tr><td>Best when</td><td>Most features useful</td><td>Only a few features matter</td></tr></table></div>
+<p><b>Illustration (example numbers):</b></p>
+<div class="w"><table><tr><th>Weights</th><th>w<sub>1</sub></th><th>w<sub>2</sub></th><th>w<sub>3</sub></th></tr>
+<tr><td>No regularization</td><td>4.0</td><td>-3.5</td><td>0.2</td></tr>
+<tr><td>Ridge</td><td>2.1</td><td>-1.9</td><td>0.15</td></tr>
+<tr><td>Lasso</td><td>2.8</td><td>-2.3</td><td>0.0</td></tr></table></div>
+</section>
+<footer>Notes by Krunal Mewada</footer>
+<script>
+const B=[...document.querySelectorAll('.tabs button')],P=[...document.querySelectorAll('.panel')];
+function show(t){if(!P.some(p=>p.id===t))t='u1';B.forEach(b=>b.classList.toggle('on',b.dataset.t===t));P.forEach(p=>p.classList.toggle('on',p.id===t));scrollTo(0,0)}
+B.forEach(b=>b.onclick=()=>{location.hash=b.dataset.t});
+addEventListener('hashchange',()=>show(location.hash.slice(1)));show(location.hash.slice(1));
+</script></body></html>
